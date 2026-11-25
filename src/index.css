@@ -1,0 +1,189 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  :root {
+    --font-serif: "Playfair Display", Georgia, Cambria, "Times New Roman", Times, serif;
+    --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  html[data-font-size='small'] {
+    font-size: 14px;
+  }
+
+  html[data-font-size='medium'] {
+    font-size: 16px;
+  }
+
+  html[data-font-size='large'] {
+    font-size: 18px;
+  }
+
+  body {
+    font-family: var(--font-sans);
+  }
+}
+
+.font-editorial {
+  font-family: var(--font-serif);
+}
+
+.font-mono-tabular {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes breaking-marquee {
+  0% {
+    transform: translate3d(0%, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-breaking-marquee {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: breaking-marquee var(--ticker-duration, 28s) linear infinite;
+}
+
+.ticker-container:hover .animate-breaking-marquee,
+.ticker-container:focus-within .animate-breaking-marquee,
+.animate-breaking-marquee.is-paused {
+  animation-play-state: paused;
+}
+
+@keyframes feedFadeIn {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 6px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-feed-fade-in {
+  animation: feedFadeIn 180ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.reading-progress-glow {
+  background: linear-gradient(90deg, #16a085 0%, #19b496 68%, #5eead4 100%);
+  box-shadow:
+    0 0 8px rgba(22, 160, 133, 0.65),
+    0 0 16px rgba(94, 234, 212, 0.45);
+}
+
+.dark .reading-progress-glow {
+  box-shadow:
+    0 0 10px rgba(25, 180, 150, 0.8),
+    0 0 20px rgba(94, 234, 212, 0.5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .animate-breaking-marquee {
+    animation-play-state: paused;
+  }
+
+  .animate-feed-fade-in {
+    animation: none;
+  }
+}
+
+@page {
+  margin: 16mm;
+}
+
+@media print {
+  html,
+  body,
+  .portal-shell {
+    background: #ffffff !important;
+    color: #111827 !important;
+    min-height: 0 !important;
+    height: auto !important;
+    display: block !important;
+  }
+
+  .portal-shell > :not(.print-modal-root) {
+    display: none !important;
+  }
+
+  .print-hidden {
+    display: none !important;
+  }
+
+  .print-modal-root {
+    position: static !important;
+    inset: auto !important;
+    display: block !important;
+    padding: 0 !important;
+    height: auto !important;
+    background: #ffffff !important;
+  }
+
+  .print-modal-article {
+    position: static !important;
+    max-height: none !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+    background: #ffffff !important;
+    color: #111827 !important;
+  }
+
+  .print-modal-scroll {
+    overflow: visible !important;
+    max-height: none !important;
+    padding: 0 !important;
+    color: #111827 !important;
+  }
+
+  .print-modal-article h1,
+  .print-modal-article h2,
+  .print-modal-article h3,
+  .print-modal-article p,
+  .print-modal-article blockquote {
+    color: #111827 !important;
+  }
+
+  .print-modal-article p {
+    orphans: 3;
+    widows: 3;
+  }
+
+  .print-modal-article h1,
+  .print-modal-article h2,
+  .print-modal-article h3,
+  .print-modal-article header {
+    break-after: avoid;
+  }
+
+  .print-modal-article figure,
+  .print-modal-article blockquote,
+  .print-modal-article section {
+    break-inside: avoid;
+  }
+
+  .print-modal-article mark,
+  .print-modal-article svg {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+

@@ -1,0 +1,1831 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' b:responsive='true' b:templateVersion='1.0.0' expr:dir='data:blog.languageDirection' lang='id' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+  <meta content='width=device-width, initial-scale=1' name='viewport'/>
+  <meta expr:content='&quot;text/html; charset=&quot; + data:blog.encoding' http-equiv='Content-Type'/>
+  <b:include data='blog' name='all-head-content'/>
+  <b:if cond='data:view.isHomepage'>
+    <title><data:blog.pageTitle/></title>
+  <b:elseif cond='data:view.isError'/>
+    <title>404 Halaman Tidak Ditemukan - <data:blog.title/></title>
+  <b:else/>
+    <title><data:blog.pageName/> - <data:blog.title/></title>
+  </b:if>
+
+  <b:if cond='data:view.featuredImage'>
+    <meta expr:content='data:view.featuredImage' property='og:image'/>
+  </b:if>
+  <meta expr:content='data:view.title.escaped' property='og:title'/>
+  <meta expr:content='data:view.url.canonical' property='og:url'/>
+  <meta expr:content='data:view.isSingleItem ? &quot;article&quot; : &quot;website&quot;' property='og:type'/>
+
+  <b:if cond='data:view.isHomepage'>
+    <script type='application/ld+json'>{&quot;@context&quot;:&quot;https://schema.org&quot;,&quot;@type&quot;:&quot;WebSite&quot;,&quot;name&quot;:&quot;<data:view.title.escaped/>&quot;,&quot;url&quot;:&quot;<data:view.url.canonical/>&quot;,&quot;potentialAction&quot;:{&quot;@type&quot;:&quot;SearchAction&quot;,&quot;target&quot;:&quot;<data:view.url.canonical/>search?q={search_term_string}&quot;,&quot;query-input&quot;:&quot;required name=search_term_string&quot;}}</script>
+  </b:if>
+
+  <link href='https://fonts.googleapis.com' rel='preconnect'/>
+  <link crossorigin='anonymous' href='https://fonts.gstatic.com' rel='preconnect'/>
+  <link href='https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&amp;family=Playfair+Display:wght@600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap' rel='stylesheet'/>
+
+  <!-- =======================================================
+       BAGIAN CSS DAN VARIABEL DESAINER TEMA (keadilan-theme.css)
+       ======================================================= -->
+  <b:skin><![CDATA[
+/* =========================================================
+   Tema Blogspot Resmi: KEADILAN.CO.ID — Media Daring
+   Diterbitkan oleh: PT Wahana Sahabat Kreatif (Cirebon)
+   Mendukung Desainer Tema dan Pengelolaan Gadget Tata Letak
+   ========================================================= */
+
+/*
+<!-- Variable definitions -->
+<Variable name="keycolor" description="Warna Aksen Utama" type="color" default="#16A085" value="#16A085"/>
+
+<Group description="Warna Utama Tema" selector="body">
+  <Variable name="body.background.color" description="Warna Latar Halaman" type="color" default="#FAF9F6" value="#FAF9F6"/>
+  <Variable name="body.background" description="Latar Belakang Halaman" hideEditor="true" type="background" color="$(body.background.color)" default="$(color) none repeat scroll top left" value="#FAF9F6 none repeat scroll top left"/>
+  <Variable name="surface.background" description="Warna Latar Kartu dan Header" type="color" default="#FFFFFF" value="#FFFFFF"/>
+  <Variable name="body.text.color" description="Warna Teks Utama" type="color" default="#18181B" value="#18181B"/>
+  <Variable name="border.color" description="Warna Garis Batas" type="color" default="#E4E4E7" value="#E4E4E7"/>
+  <Variable name="navy.color" description="Warna Navy Redaksi" type="color" default="#0F2A44" value="#0F2A44"/>
+  <Variable name="gold.color" description="Aksen Emas Redaksi" type="color" default="#C9A227" value="#C9A227"/>
+</Group>
+
+<Group description="Breaking News Ticker" selector=".breaking-news-bar">
+  <Variable name="ticker.bg.color" description="Warna Latar Breaking News" type="color" default="#B91C1C" value="#B91C1C"/>
+  <Variable name="ticker.text.color" description="Warna Teks Breaking News" type="color" default="#FFFFFF" value="#FFFFFF"/>
+</Group>
+
+<Group description="Tipografi dan Lebar Tata Letak" selector="body">
+  <Variable name="main.font" description="Font Teks Utama" type="font" default="normal 400 16px 'Plus Jakarta Sans', sans-serif" value="normal 400 16px 'Plus Jakarta Sans', sans-serif"/>
+  <Variable name="heading.font" description="Font Judul Editorial" type="font" default="normal 700 24px 'Playfair Display', Georgia, serif" value="normal 700 24px 'Playfair Display', Georgia, serif"/>
+  <Variable name="content.width" description="Lebar Maksimum Portal" type="length" default="1200px" min="960px" max="1440px" value="1200px"/>
+</Group>
+*/
+
+html[data-font-size="small"] { font-size: 14px; }
+html[data-font-size="medium"] { font-size: 16px; }
+html[data-font-size="large"] { font-size: 18px; }
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: $(body.background);
+  background-color: $(body.background.color);
+  color: $(body.text.color);
+  font: $(main.font);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; height: auto; }
+
+.container {
+  max-width: $(content.width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* 1. Breaking News Running Text Bar */
+.breaking-news-bar {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  width: 100%;
+  height: 38px;
+  background: $(ticker.bg.color);
+  color: $(ticker.text.color);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.14);
+  overflow: hidden;
+  font-size: 13px;
+}
+.breaking-news-inner {
+  max-width: $(content.width);
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.breaking-badge {
+  flex-shrink: 0;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 2px;
+  background: #FFFFFF;
+  color: $(ticker.bg.color);
+}
+.breaking-track-wrap {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+.breaking-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: keadilanTicker 28s linear infinite;
+}
+.breaking-track-wrap:hover .breaking-track,
+.breaking-track.is-paused {
+  animation-play-state: paused;
+}
+.breaking-item {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  color: $(ticker.text.color) !important;
+  font-weight: 500;
+  margin-right: 26px;
+}
+.breaking-item:hover { text-decoration: underline; }
+.breaking-item.is-spotlight { font-weight: 700; }
+.breaking-sep { opacity: 0.55; margin-left: 26px; }
+.ticker-controls { display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.ticker-pause-btn {
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(0, 0, 0, 0.16);
+  color: $(ticker.text.color);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+@keyframes keadilanTicker {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+/* 2. Editorial Header, Navigation Gadget & Reading Progress */
+.site-header {
+  position: sticky;
+  top: 38px;
+  z-index: 50;
+  background: $(surface.background);
+  border-bottom: 1px solid $(border.color);
+}
+.header-inner {
+  min-height: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+.header-brand-section { flex-shrink: 0; }
+.header-brand-section .widget { margin: 0; }
+.brand-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font: $(heading.font);
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+.brand-wrap img { max-height: 36px; width: auto; }
+.brand-emblem {
+  width: 28px;
+  height: 28px;
+  border-radius: 3px;
+  background: $(navy.color);
+  color: $(gold.color);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 15px;
+  font-weight: 800;
+}
+.brand-domain { color: $(keycolor); }
+.header-nav-section { flex: 1; min-width: 0; }
+.header-nav-section .widget { margin: 0; }
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  overflow-x: auto;
+}
+.main-nav a {
+  font-size: 13px;
+  font-weight: 600;
+  color: #52525B;
+  white-space: nowrap;
+  padding: 6px 0;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.main-nav a:hover,
+.main-nav a.is-active {
+  color: $(keycolor);
+  border-bottom-color: $(keycolor);
+}
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.search-form {
+  display: flex;
+  align-items: center;
+  border: 1px solid $(border.color);
+  border-radius: 6px;
+  background: $(body.background.color);
+  overflow: hidden;
+}
+.search-form input {
+  border: none;
+  background: transparent;
+  color: $(body.text.color);
+  font-size: 12px;
+  padding: 7px 10px;
+  width: 156px;
+  outline: none;
+}
+.search-form button {
+  border: none;
+  background: $(keycolor);
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 8px 11px;
+  cursor: pointer;
+}
+.theme-toggle-btn,
+.mobile-menu-btn {
+  height: 34px;
+  padding: 0 10px;
+  border-radius: 6px;
+  border: 1px solid $(border.color);
+  background: $(surface.background);
+  color: $(body.text.color);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.mobile-menu-btn { display: none; }
+.mobile-drawer {
+  display: none;
+  background: $(surface.background);
+  border-top: 1px solid $(border.color);
+  padding: 12px 20px 16px;
+}
+.mobile-drawer.is-open { display: block; }
+.mobile-drawer-nav { display: flex; flex-wrap: wrap; gap: 8px; }
+.mobile-drawer-nav a {
+  padding: 6px 12px;
+  border-radius: 5px;
+  border: 1px solid $(border.color);
+  background: $(body.background.color);
+  font-size: 12px;
+  font-weight: 600;
+}
+.reading-progress-track { width: 100%; height: 3px; background: #F4F4F5; }
+.reading-progress-fill {
+  width: 100%;
+  height: 100%;
+  background: $(keycolor);
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 80ms ease-out, box-shadow 250ms ease;
+}
+.reading-progress-fill.is-glow {
+  background: linear-gradient(90deg, #16A085 0%, #19B496 68%, #5EEAD4 100%);
+  box-shadow: 0 0 10px rgba(22, 160, 133, 0.7), 0 0 18px rgba(94, 234, 212, 0.45);
+}
+
+.header-ad-banner { padding-top: 18px; }
+.header-ad-banner .widget {
+  background: $(surface.background);
+  border: 1px solid $(border.color);
+  border-radius: 6px;
+  padding: 14px 18px;
+  text-align: center;
+}
+
+/* 3. Main 8 + 4 Asymmetric Grid */
+.portal-main {
+  padding: 28px 0 54px;
+  display: grid;
+  grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+  gap: 32px;
+  align-items: start;
+}
+.main-top-widgets .widget,
+.main-bottom-widgets .widget {
+  background: $(surface.background);
+  border: 1px solid $(border.color);
+  border-radius: 6px;
+  padding: 18px;
+  margin-bottom: 22px;
+}
+.main-bottom-widgets .widget { margin-top: 22px; margin-bottom: 0; }
+
+.feed-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0 0 18px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid $(border.color);
+}
+.section-heading {
+  font: $(heading.font);
+  font-size: 21px;
+  font-weight: 700;
+  margin: 0;
+}
+.feed-controls { display: inline-flex; align-items: center; gap: 6px; }
+.view-btn {
+  height: 30px;
+  padding: 0 10px;
+  border-radius: 5px;
+  border: 1px solid $(border.color);
+  background: $(surface.background);
+  color: #52525B;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.view-btn.is-active {
+  background: $(navy.color);
+  border-color: $(navy.color);
+  color: #FFFFFF;
+}
+
+/* Lead Featured Card */
+.lead-story-card {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid $(border.color);
+  background: $(navy.color);
+  margin-bottom: 24px;
+  min-height: 330px;
+  display: flex;
+  align-items: flex-end;
+}
+.lead-story-bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.lead-story-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(180deg, rgba(15, 42, 68, 0.18) 0%, rgba(9, 9, 11, 0.88) 100%);
+}
+.lead-story-content { position: relative; z-index: 2; padding: 24px; color: #FFFFFF; }
+.lead-kicker {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #5EEAD4;
+  margin-bottom: 6px;
+}
+.lead-title {
+  font: $(heading.font);
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.25;
+  margin: 0 0 8px;
+}
+.lead-title a:hover { text-decoration: underline; }
+.lead-snippet { font-size: 14px; color: #E4E4E7; margin: 0 0 10px; }
+.lead-meta { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; color: #D4D4D8; }
+
+/* Post Feed List & Grid */
+.posts-wrap.is-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.post-list-card {
+  display: flex;
+  gap: 18px;
+  padding: 20px 0;
+  border-bottom: 1px solid $(border.color);
+}
+.posts-wrap.is-grid .post-list-card {
+  flex-direction: column;
+  padding: 0;
+  border: 1px solid $(border.color);
+  border-radius: 8px;
+  background: $(surface.background);
+  overflow: hidden;
+  gap: 0;
+}
+.posts-wrap.is-grid .post-thumb-link {
+  width: 100%;
+  height: 175px;
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid $(border.color);
+}
+.posts-wrap.is-grid .post-card-body { padding: 16px; }
+.post-thumb-link {
+  width: 210px;
+  height: 132px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid $(border.color);
+  background: linear-gradient(135deg, #0F2A44 0%, #16A085 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.post-thumb-link img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.post-thumb-fallback {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 800;
+  font-size: 22px;
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: 0.04em;
+}
+.post-card-body { flex: 1; min-width: 0; }
+.post-kicker {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: $(keycolor);
+  margin-bottom: 6px;
+}
+.post-card-title {
+  font: $(heading.font);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0 0 8px;
+}
+.post-card-title a:hover { color: $(keycolor); }
+.post-snippet { font-size: 14px; color: #52525B; margin: 0 0 10px; }
+.post-meta { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; color: #52525B; }
+
+/* Single Article Page */
+.breadcrumb {
+  font-size: 12px;
+  color: #52525B;
+  margin-bottom: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+.breadcrumb a:hover { color: $(keycolor); }
+.single-article {
+  background: $(surface.background);
+  border: 1px solid $(border.color);
+  border-radius: 8px;
+  padding: 28px;
+}
+.single-article-header-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid $(border.color);
+}
+.font-size-controls { display: inline-flex; align-items: center; gap: 4px; }
+.font-size-btn {
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid $(border.color);
+  background: $(body.background.color);
+  color: #52525B;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.font-size-btn.is-active { border-color: $(keycolor); color: $(keycolor); }
+.single-article-title {
+  font: $(heading.font);
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1.25;
+  margin: 8px 0 12px;
+}
+.single-article-body { font-size: 1rem; line-height: 1.8; margin-top: 22px; }
+.single-article-body p { margin: 0 0 16px; }
+.single-article-body h2,
+.single-article-body h3 { font: $(heading.font); margin: 24px 0 10px; line-height: 1.35; }
+.single-article-body blockquote {
+  margin: 18px 0;
+  padding: 12px 18px;
+  border-left: 3px solid $(keycolor);
+  background: #F4F4F5;
+  font-style: italic;
+}
+.single-article-body a { color: $(keycolor); text-decoration: underline; }
+.share-bar {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid $(border.color);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 5px;
+  border: 1px solid $(border.color);
+  background: $(body.background.color);
+  color: $(body.text.color);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.share-btn:hover { border-color: $(keycolor); color: $(keycolor); }
+.author-box {
+  margin-top: 20px;
+  padding: 16px;
+  border-radius: 6px;
+  background: $(body.background.color);
+  border: 1px solid $(border.color);
+}
+.author-box-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: $(keycolor);
+  margin: 0 0 4px;
+}
+.author-box-name { font: $(heading.font); font-size: 16px; font-weight: 700; margin: 0 0 4px; }
+.author-box-bio { font-size: 13px; color: #52525B; margin: 0; }
+.comments-wrap {
+  margin-top: 24px;
+  background: $(surface.background);
+  border: 1px solid $(border.color);
+  border-radius: 8px;
+  padding: 24px;
+}
+
+/* Empty & 404 State */
+.empty-state {
+  background: $(surface.background);
+  border: 1px dashed $(border.color);
+  border-radius: 8px;
+  padding: 40px 24px;
+  text-align: center;
+}
+.empty-state h2 { font: $(heading.font); margin: 0 0 8px; }
+.empty-state p { font-size: 14px; color: #52525B; margin: 0 0 18px; }
+.empty-btn {
+  display: inline-block;
+  padding: 9px 16px;
+  border-radius: 6px;
+  background: $(keycolor);
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Pagination */
+.blog-pager { margin-top: 24px; display: flex; justify-content: space-between; gap: 12px; }
+.pager-link {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: 1px solid $(border.color);
+  background: $(surface.background);
+  font-size: 12px;
+  font-weight: 600;
+}
+.pager-link:hover { border-color: $(keycolor); color: $(keycolor); }
+
+/* Sidebar Gadgets */
+.sidebar-col { display: flex; flex-direction: column; gap: 24px; }
+.sidebar-col .widget {
+  background: $(surface.background);
+  border: 1px solid $(border.color);
+  border-radius: 6px;
+  padding: 20px;
+}
+.sidebar-col .widget + .widget { margin-top: 20px; }
+.sidebar-col .widget h2,
+.sidebar-col .widget h3 {
+  font: $(heading.font);
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid $(border.color);
+}
+.sidebar-col .widget ul:not(.label-list):not(.popular-list) { list-style: none; margin: 0; padding: 0; }
+.sidebar-col .widget ul:not(.label-list):not(.popular-list) li {
+  padding: 7px 0;
+  border-bottom: 1px solid $(border.color);
+  font-size: 13px;
+}
+.sidebar-col .widget ul:not(.label-list):not(.popular-list) li:last-child { border-bottom: none; padding-bottom: 0; }
+.popular-list { list-style: none; margin: 0; padding: 0; }
+.popular-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid $(border.color);
+}
+.popular-item:last-child { border-bottom: none; padding-bottom: 0; }
+.popular-rank {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 18px;
+  font-weight: 700;
+  color: #52525B;
+  opacity: 0.45;
+  line-height: 1;
+  padding-top: 2px;
+}
+.popular-title { font: $(heading.font); font-size: 14px; font-weight: 700; line-height: 1.35; display: block; }
+.popular-title:hover { color: $(keycolor); }
+.popular-date { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; color: #52525B; display: block; margin-top: 4px; }
+.label-list { list-style: none; margin: 0; padding: 0; }
+.label-list li { padding: 8px 0; border-bottom: 1px solid $(border.color); font-size: 13px; }
+.label-list li:last-child { border-bottom: none; padding-bottom: 0; }
+.label-list a { display: flex; align-items: center; justify-content: space-between; font-weight: 500; }
+.label-list a:hover { color: $(keycolor); }
+.label-count { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; color: #52525B; }
+.redaksi-box {
+  background: $(navy.color) !important;
+  color: #FFFFFF !important;
+  border-color: $(navy.color) !important;
+}
+.redaksi-box h3 { color: $(gold.color); border-bottom-color: rgba(255, 255, 255, 0.14) !important; }
+
+/* 4. Institutional Navy Footer */
+.site-footer {
+  background: $(navy.color);
+  color: #E4E4E7;
+  border-top: 3px solid $(gold.color);
+  margin-top: 32px;
+}
+.footer-grid {
+  padding: 40px 20px;
+  display: grid;
+  grid-template-columns: 5fr 4fr 3fr;
+  gap: 32px;
+}
+.footer-col .widget + .widget { margin-top: 18px; }
+.footer-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: $(gold.color);
+  margin: 0 0 10px;
+}
+.footer-text { font-size: 13px; color: #D4D4D8; margin: 0; line-height: 1.7; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 13px; }
+.footer-links a:hover { color: #FFFFFF; text-decoration: underline; }
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 16px 20px;
+  font-size: 12px;
+  color: #A1A1AA;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+/* Floating Back to Top */
+.back-to-top-btn {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 55;
+  height: 40px;
+  padding: 0 14px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: $(navy.color);
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition: opacity 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.22);
+}
+.back-to-top-btn.is-visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+.back-to-top-btn:hover { background: $(keycolor); }
+
+/* Dark Mode Overrides */
+html[data-theme="dark"] body { background: #09090B; color: #F4F4F5; }
+html[data-theme="dark"] .site-header,
+html[data-theme="dark"] .theme-toggle-btn,
+html[data-theme="dark"] .mobile-menu-btn,
+html[data-theme="dark"] .mobile-drawer,
+html[data-theme="dark"] .header-ad-banner .widget,
+html[data-theme="dark"] .main-top-widgets .widget,
+html[data-theme="dark"] .main-bottom-widgets .widget,
+html[data-theme="dark"] .view-btn,
+html[data-theme="dark"] .posts-wrap.is-grid .post-list-card,
+html[data-theme="dark"] .single-article,
+html[data-theme="dark"] .comments-wrap,
+html[data-theme="dark"] .empty-state,
+html[data-theme="dark"] .pager-link,
+html[data-theme="dark"] .sidebar-col .widget {
+  background: #18181B;
+  border-color: #27272A;
+  color: #F4F4F5;
+}
+html[data-theme="dark"] .search-form,
+html[data-theme="dark"] .mobile-drawer-nav a,
+html[data-theme="dark"] .font-size-btn,
+html[data-theme="dark"] .share-btn,
+html[data-theme="dark"] .author-box {
+  background: #09090B;
+  border-color: #27272A;
+  color: #F4F4F5;
+}
+html[data-theme="dark"] .main-nav a,
+html[data-theme="dark"] .post-snippet,
+html[data-theme="dark"] .post-meta,
+html[data-theme="dark"] .breadcrumb,
+html[data-theme="dark"] .author-box-bio,
+html[data-theme="dark"] .empty-state p,
+html[data-theme="dark"] .popular-rank,
+html[data-theme="dark"] .popular-date,
+html[data-theme="dark"] .label-count { color: #A1A1AA; }
+html[data-theme="dark"] .single-article-body blockquote,
+html[data-theme="dark"] .reading-progress-track { background: #27272A; }
+html[data-theme="dark"] .post-list-card,
+html[data-theme="dark"] .feed-header,
+html[data-theme="dark"] .single-article-header-meta,
+html[data-theme="dark"] .share-bar,
+html[data-theme="dark"] .sidebar-col .widget h2,
+html[data-theme="dark"] .sidebar-col .widget h3,
+html[data-theme="dark"] .popular-item,
+html[data-theme="dark"] .label-list li { border-color: #27272A; }
+
+@media (max-width: 960px) {
+  .portal-main { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+  .header-nav-section { display: none; }
+  .mobile-menu-btn { display: inline-flex; align-items: center; }
+}
+@media (max-width: 640px) {
+  .posts-wrap.is-grid { grid-template-columns: 1fr; }
+  .post-list-card { flex-direction: column; }
+  .post-thumb-link { width: 100%; height: 185px; }
+  .search-form input { width: 110px; }
+  .lead-title { font-size: 21px; }
+  .single-article { padding: 20px; }
+  .single-article-title { font-size: 24px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .breaking-track { animation-play-state: paused; }
+}
+@media print {
+  .breaking-news-bar,
+  .site-header,
+  .header-ad-banner,
+  .sidebar-col,
+  .site-footer,
+  .back-to-top-btn,
+  .share-bar,
+  .font-size-controls,
+  .comments-wrap,
+  .main-top-widgets,
+  .main-bottom-widgets { display: none !important; }
+  body { background: #FFFFFF !important; color: #111827 !important; }
+  .portal-main { display: block !important; padding: 0 !important; }
+  .single-article { border: none !important; padding: 0 !important; }
+}
+]]></b:skin>
+
+  <b:if cond='data:view.isLayoutMode'>
+    <b:template-skin><![CDATA[
+/* === Tata Letak (Layout Wireframe) untuk Dasbor Blogger === */
+body#layout {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 16px;
+  background: #F4F4F5;
+  font-family: "Plus Jakarta Sans", -apple-system, sans-serif;
+}
+body#layout .breaking-news-bar,
+body#layout .site-header,
+body#layout .header-ad-banner,
+body#layout .portal-main,
+body#layout .site-footer {
+  position: static !important;
+  height: auto !important;
+  overflow: visible !important;
+  margin-bottom: 12px !important;
+}
+body#layout .header-inner {
+  display: grid !important;
+  grid-template-columns: 1fr 2fr !important;
+  gap: 12px !important;
+  height: auto !important;
+  padding: 12px !important;
+}
+body#layout .portal-main {
+  display: grid !important;
+  grid-template-columns: 2fr 1fr !important;
+  gap: 16px !important;
+  padding: 0 !important;
+}
+body#layout .footer-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+  padding: 12px !important;
+}
+body#layout .section {
+  background: #FFFFFF !important;
+  border: 1px dashed #94A3B8 !important;
+  border-radius: 6px !important;
+  padding: 10px !important;
+  margin: 0 0 10px !important;
+}
+body#layout .section h4 {
+  color: #0F2A44 !important;
+  font-size: 12px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+}
+body#layout .widget-content {
+  border-radius: 4px !important;
+}
+body#layout .mobile-drawer,
+body#layout .reading-progress-track,
+body#layout .back-to-top-btn,
+body#layout .ticker-controls,
+body#layout .header-actions {
+  display: none !important;
+}
+    ]]></b:template-skin>
+  </b:if>
+</head>
+
+<body>
+  <script type='text/javascript'>//<![CDATA[
+  (function() {
+    try {
+      var saved = localStorage.getItem('keadilan_dark_mode');
+      var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (saved === 'dark' || (saved !== 'light' && prefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+      var fs = localStorage.getItem('keadilan_font_size');
+      if (fs === 'small' || fs === 'medium' || fs === 'large') {
+        document.documentElement.setAttribute('data-font-size', fs);
+      }
+    } catch (e) {}
+  })();
+  //]]></script>
+
+  <!-- 1. Breaking News Running Text Bar (Dapat Diedit via Tata Letak > Gadget LinkList1) -->
+  <div class='breaking-news-bar' data-auto-cycle='false' data-cycle-interval='5' data-ticker-duration='28' id='breakingNewsBar'>
+    <div class='breaking-news-inner'>
+      <span class='breaking-badge'>TERKINI</span>
+      <div class='breaking-track-wrap'>
+        <b:section class='breaking-ticker-section' id='breaking-news-section' maxwidgets='2' name='Breaking News Ticker' showaddelement='yes'>
+          <b:widget id='LinkList1' locked='false' title='Daftar Breaking News' type='LinkList' version='2' visible='true'>
+            <b:widget-settings>
+              <b:widget-setting name='sorting'>NONE</b:widget-setting>
+            <b:widget-setting name='link-0'>/search/label/Hukum</b:widget-setting>
+            <b:widget-setting name='text-0'>Hukum: Mahkamah Agung luncurkan sistem pemantauan perkara elektronik terintegrasi di seluruh pengadilan negeri Jawa Barat</b:widget-setting>
+            <b:widget-setting name='link-1'>/search/label/Daerah</b:widget-setting>
+            <b:widget-setting name='text-1'>Daerah: Revitalisasi kawasan pelabuhan Cirebon dan koridor ekonomi Pantura ditargetkan rampung kuartal ketiga tahun ini</b:widget-setting>
+            <b:widget-setting name='link-2'>/search/label/Politik</b:widget-setting>
+            <b:widget-setting name='text-2'>Politik: DPRD bersama pemerintah daerah sepakat perkuat transparansi anggaran publik melalui portal data terbuka daerah</b:widget-setting>
+            <b:widget-setting name='link-3'>/search/label/Umum</b:widget-setting>
+            <b:widget-setting name='text-3'>Umum: BMKG keluarkan prakiraan cuaca maritim dan imbauan kewaspadaan gelombang tinggi bagi nelayan pesisir utara</b:widget-setting>
+            <b:widget-setting name='link-4'>/search/label/Sorot</b:widget-setting>
+            <b:widget-setting name='text-4'>Sorot: Liputan Khusus: Menakar kesiapan UMKM Cirebon menembus pasar ekspor digital berbekal pendampingan hukum usaha</b:widget-setting>
+            </b:widget-settings>
+            <b:includable id='main'>
+              <b:include name='content'/>
+            </b:includable>
+            <b:includable id='content'>
+              <div class='breaking-track' id='breakingTrack'>
+                <b:if cond='data:links'>
+                  <b:loop values='data:links' var='link'>
+                    <a class='breaking-item' expr:href='data:link.target'><data:link.name/><span class='breaking-sep'>&#8226;</span></a>
+                  </b:loop>
+                  <b:loop values='data:links' var='link'>
+                    <a class='breaking-item' expr:href='data:link.target'><data:link.name/><span class='breaking-sep'>&#8226;</span></a>
+                  </b:loop>
+                <b:else/>
+                <a class='breaking-item' href='/search/label/Hukum'><strong>Hukum:</strong>&#160;Mahkamah Agung luncurkan sistem pemantauan perkara elektronik terintegrasi di seluruh pengadilan negeri Jawa Barat<span class='breaking-sep'>&#8226;</span></a>
+                <a class='breaking-item' href='/search/label/Daerah'><strong>Daerah:</strong>&#160;Revitalisasi kawasan pelabuhan Cirebon dan koridor ekonomi Pantura ditargetkan rampung kuartal ketiga tahun ini<span class='breaking-sep'>&#8226;</span></a>
+                <a class='breaking-item' href='/search/label/Politik'><strong>Politik:</strong>&#160;DPRD bersama pemerintah daerah sepakat perkuat transparansi anggaran publik melalui portal data terbuka daerah<span class='breaking-sep'>&#8226;</span></a>
+                <a class='breaking-item' href='/search/label/Umum'><strong>Umum:</strong>&#160;BMKG keluarkan prakiraan cuaca maritim dan imbauan kewaspadaan gelombang tinggi bagi nelayan pesisir utara<span class='breaking-sep'>&#8226;</span></a>
+                <a class='breaking-item' href='/search/label/Sorot'><strong>Sorot:</strong>&#160;Liputan Khusus: Menakar kesiapan UMKM Cirebon menembus pasar ekspor digital berbekal pendampingan hukum usaha<span class='breaking-sep'>&#8226;</span></a>
+                <a class='breaking-item' href='/search/label/Hukum'><strong>Hukum:</strong>&#160;Mahkamah Agung luncurkan sistem pemantauan perkara elektronik terintegrasi di seluruh pengadilan negeri Jawa Barat<span class='breaking-sep'>&#8226;</span></a>
+                <a class='breaking-item' href='/search/label/Daerah'><strong>Daerah:</strong>&#160;Revitalisasi kawasan pelabuhan Cirebon dan koridor ekonomi Pantura ditargetkan rampung kuartal ketiga tahun ini<span class='breaking-sep'>&#8226;</span></a>
+                <a class='breaking-item' href='/search/label/Politik'><strong>Politik:</strong>&#160;DPRD bersama pemerintah daerah sepakat perkuat transparansi anggaran publik melalui portal data terbuka daerah<span class='breaking-sep'>&#8226;</span></a>
+                <a class='breaking-item' href='/search/label/Umum'><strong>Umum:</strong>&#160;BMKG keluarkan prakiraan cuaca maritim dan imbauan kewaspadaan gelombang tinggi bagi nelayan pesisir utara<span class='breaking-sep'>&#8226;</span></a>
+                <a class='breaking-item' href='/search/label/Sorot'><strong>Sorot:</strong>&#160;Liputan Khusus: Menakar kesiapan UMKM Cirebon menembus pasar ekspor digital berbekal pendampingan hukum usaha<span class='breaking-sep'>&#8226;</span></a>
+                </b:if>
+              </div>
+            </b:includable>
+          </b:widget>
+        </b:section>
+      </div>
+      <div class='ticker-controls'>
+        <button class='ticker-pause-btn' id='tickerPauseBtn' type='button'>Jeda</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Editorial Header & Gadget Navigasi -->
+  <header class='site-header'>
+    <div class='container header-inner'>
+      <b:section class='header-brand-section' id='header-brand' maxwidgets='2' name='Logo dan Judul Blog' showaddelement='yes'>
+        <b:widget id='Header1' locked='false' title='KEADILAN.CO.ID (Header)' type='Header' version='2' visible='true'>
+          <b:includable id='main' var='this'>
+            <a class='brand-wrap' expr:href='data:blog.homepageUrl' expr:title='data:title'>
+              <b:if cond='data:sourceUrl'>
+                <img expr:alt='data:title' expr:src='data:sourceUrl'/>
+              <b:else/>
+                <span class='brand-emblem'>K</span>
+                <span>KEADILAN<span class='brand-domain'>.CO.ID</span></span>
+              </b:if>
+            </a>
+          </b:includable>
+          <b:includable id='behindImageStyle'/>
+          <b:includable id='description'/>
+          <b:includable id='image'/>
+          <b:includable id='shrinkToFitStyle'/>
+          <b:includable id='title'/>
+        </b:widget>
+      </b:section>
+
+      <b:section class='header-nav-section' id='header-nav' maxwidgets='2' name='Menu Navigasi Rubrik' showaddelement='yes'>
+        <b:widget id='LinkList2' locked='false' title='Menu Navigasi Utama' type='LinkList' version='2' visible='true'>
+          <b:widget-settings>
+            <b:widget-setting name='sorting'>NONE</b:widget-setting>
+            <b:widget-setting name='link-0'>/</b:widget-setting>
+            <b:widget-setting name='text-0'>Beranda</b:widget-setting>
+            <b:widget-setting name='link-1'>/search/label/Sorot</b:widget-setting>
+            <b:widget-setting name='text-1'>Sorot</b:widget-setting>
+            <b:widget-setting name='link-2'>/search/label/Hukum</b:widget-setting>
+            <b:widget-setting name='text-2'>Hukum</b:widget-setting>
+            <b:widget-setting name='link-3'>/search/label/Politik</b:widget-setting>
+            <b:widget-setting name='text-3'>Politik</b:widget-setting>
+            <b:widget-setting name='link-4'>/search/label/Daerah</b:widget-setting>
+            <b:widget-setting name='text-4'>Daerah</b:widget-setting>
+            <b:widget-setting name='link-5'>/search/label/Ekonomi</b:widget-setting>
+            <b:widget-setting name='text-5'>Ekonomi</b:widget-setting>
+            <b:widget-setting name='link-6'>/search/label/Teknologi</b:widget-setting>
+            <b:widget-setting name='text-6'>Teknologi</b:widget-setting>
+          </b:widget-settings>
+          <b:includable id='main'>
+            <b:include name='content'/>
+          </b:includable>
+          <b:includable id='content'>
+            <nav aria-label='Navigasi Rubrik' class='main-nav'>
+              <b:if cond='data:links'>
+                <b:loop values='data:links' var='link'>
+                  <a expr:href='data:link.target'><data:link.name/></a>
+                </b:loop>
+              <b:else/>
+                <a expr:href='data:blog.homepageUrl'>Beranda</a>
+                <a href='/search/label/Sorot'>Sorot</a>
+                <a href='/search/label/Hukum'>Hukum</a>
+                <a href='/search/label/Politik'>Politik</a>
+                <a href='/search/label/Daerah'>Daerah</a>
+                <a href='/search/label/Ekonomi'>Ekonomi</a>
+                <a href='/search/label/Teknologi'>Teknologi</a>
+              </b:if>
+            </nav>
+          </b:includable>
+        </b:widget>
+      </b:section>
+
+      <div class='header-actions'>
+        <form action='/search' class='search-form' method='get'>
+          <input aria-label='Cari berita' name='q' placeholder='Cari berita...' type='search'/>
+          <button type='submit'>Cari</button>
+        </form>
+        <button aria-label='Ubah mode warna' class='theme-toggle-btn' id='themeToggleBtn' type='button'>Tema</button>
+        <button aria-expanded='false' aria-label='Menu rubrik' class='mobile-menu-btn' id='mobileMenuBtn' type='button'>Menu</button>
+      </div>
+    </div>
+
+    <div class='mobile-drawer' id='mobileDrawer'>
+      <nav aria-label='Navigasi Seluler' class='mobile-drawer-nav'></nav>
+    </div>
+
+    <div class='reading-progress-track'>
+      <div class='reading-progress-fill' id='readingProgressFill'></div>
+    </div>
+  </header>
+
+  <!-- Slot Gadget Banner / Iklan Atas (Opsional via Tata Letak) -->
+  <div class='container header-ad-banner'>
+    <b:section class='header-ad-section' id='header-ad-slot' name='Banner dan Iklan Atas' showaddelement='yes'></b:section>
+  </div>
+
+  <!-- 3. Main Content & Sidebar (Semua Section Mendukung Tambah/Hapus/Edit Gadget) -->
+  <main class='container portal-main'>
+    <div class='feed-col'>
+      <b:section class='main-top-widgets' id='main-top-widgets' name='Gadget Atas Berita' showaddelement='yes'></b:section>
+
+      <b:section class='main-content-section' id='main-content' maxwidgets='1' name='Konten Utama dan Postingan' showaddelement='yes'>
+        <b:widget id='Blog1' locked='true' title='Postingan Blog' type='Blog' version='2' visible='true'>
+          <b:widget-settings>
+            <b:widget-setting name='showDateHeader'>false</b:widget-setting>
+            <b:widget-setting name='showAuthor'>true</b:widget-setting>
+            <b:widget-setting name='showLabels'>true</b:widget-setting>
+            <b:widget-setting name='showTimestamp'>true</b:widget-setting>
+            <b:widget-setting name='showCommentLink'>true</b:widget-setting>
+          </b:widget-settings>
+          <b:includable id='main' var='this'>
+            <b:if cond='data:view.isError'>
+              <div class='empty-state'>
+                <h2>Halaman Tidak Ditemukan (404)</h2>
+                <p>Maaf, berita atau halaman yang Anda tuju tidak tersedia atau telah dipindahkan.</p>
+                <a class='empty-btn' expr:href='data:blog.homepageUrl'>Kembali ke Beranda</a>
+              </div>
+            <b:elseif cond='data:posts.empty'/>
+              <div class='empty-state'>
+                <h2>Berita Tidak Ditemukan</h2>
+                <p>Belum ada artikel yang cocok dengan kata kunci atau rubrik yang Anda pilih.</p>
+                <a class='empty-btn' expr:href='data:blog.homepageUrl'>Lihat Kabar Terbaru</a>
+              </div>
+            <b:else/>
+              <b:if cond='data:view.isMultipleItems'>
+                <div class='feed-header'>
+                  <h1 class='section-heading'>
+                    <b:if cond='data:view.search.label'>
+                      Rubrik <data:view.search.label/>
+                    <b:elseif cond='data:view.search.query'/>
+                      Hasil Pencarian: <data:view.search.query/>
+                    <b:else/>
+                      Kabar Terbaru Redaksi
+                    </b:if>
+                  </h1>
+                  <div class='feed-controls'>
+                    <button class='view-btn is-active' data-view-mode='list' type='button'>Daftar</button>
+                    <button class='view-btn' data-view-mode='grid' type='button'>Kisi</button>
+                  </div>
+                </div>
+              </b:if>
+
+              <div class='posts-wrap' id='postsWrap'>
+                <b:loop index='i' values='data:posts' var='post'>
+                  <b:if cond='data:view.isSingleItem'>
+                    <nav aria-label='Breadcrumb' class='breadcrumb'>
+                      <a expr:href='data:blog.homepageUrl'>Beranda</a>
+                      <b:if cond='data:post.labels'>
+                        <span>&#8250;</span>
+                        <a expr:href='data:post.labels.first.url'><data:post.labels.first.name/></a>
+                      </b:if>
+                      <span>&#8250;</span>
+                      <span><data:post.title/></span>
+                    </nav>
+
+                    <article class='single-article'>
+                      <b:if cond='data:post.labels'>
+                        <div class='post-kicker'>
+                          <b:loop values='data:post.labels' var='label'>
+                            <a expr:href='data:label.url'><data:label.name/></a>&#160;
+                          </b:loop>
+                        </div>
+                      </b:if>
+                      <h1 class='single-article-title'><data:post.title/></h1>
+                      <div class='single-article-header-meta'>
+                        <div class='post-meta'>
+                          <b:if cond='data:post.author'><data:post.author.name/> &#183; </b:if><data:post.date/>
+                        </div>
+                        <div aria-label='Ukuran teks artikel' class='font-size-controls'>
+                          <button class='font-size-btn' data-font-size='small' type='button'>A-</button>
+                          <button class='font-size-btn is-active' data-font-size='medium' type='button'>A</button>
+                          <button class='font-size-btn' data-font-size='large' type='button'>A+</button>
+                        </div>
+                      </div>
+                      <div class='single-article-body'>
+                        <data:post.body/>
+                      </div>
+
+                      <div class='share-bar'>
+                        <a class='share-btn' expr:href='&quot;https://wa.me/?text=&quot; + data:post.title + &quot;%20&quot; + data:post.url' rel='noopener noreferrer' target='_blank'>WhatsApp</a>
+                        <a class='share-btn' expr:href='&quot;https://t.me/share/url?url=&quot; + data:post.url + &quot;&amp;text=&quot; + data:post.title' rel='noopener noreferrer' target='_blank'>Telegram</a>
+                        <a class='share-btn' expr:href='&quot;https://twitter.com/intent/tweet?url=&quot; + data:post.url + &quot;&amp;text=&quot; + data:post.title' rel='noopener noreferrer' target='_blank'>X (Twitter)</a>
+                        <a class='share-btn' expr:href='&quot;https://www.facebook.com/sharer/sharer.php?u=&quot; + data:post.url' rel='noopener noreferrer' target='_blank'>Facebook</a>
+                        <button class='share-btn' expr:data-url='data:post.url' id='copyLinkBtn' type='button'>Salin Tautan</button>
+                        <button class='share-btn' id='printArticleBtn' type='button'>Cetak Artikel</button>
+                      </div>
+
+                      <b:if cond='data:post.author'>
+                        <div class='author-box'>
+                          <div class='author-box-title'>Penulis Redaksi</div>
+                          <div class='author-box-name'><data:post.author.name/></div>
+                          <b:if cond='data:post.author.aboutMe'>
+                            <p class='author-box-bio'><data:post.author.aboutMe/></p>
+                          </b:if>
+                        </div>
+                      </b:if>
+                    </article>
+
+                    <b:if cond='data:post.allowComments'>
+                      <div class='comments-wrap'>
+                        <b:include data='post' name='commentPicker'/>
+                      </div>
+                    </b:if>
+                  <b:elseif cond='data:view.isHomepage and !data:view.search.query and data:i == 0'/>
+                    <article class='lead-story-card'>
+                      <b:if cond='data:post.featuredImage'>
+                        <b:if cond='data:post.featuredImage.isResizable'>
+                          <img class='lead-story-bg' expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 960, &quot;16:9&quot;)'/>
+                        <b:else/>
+                          <img class='lead-story-bg' expr:alt='data:post.title' expr:src='data:post.featuredImage'/>
+                        </b:if>
+                      </b:if>
+                      <div class='lead-story-overlay'></div>
+                      <div class='lead-story-content'>
+                        <div class='lead-kicker'>
+                          <b:if cond='data:post.labels'><data:post.labels.first.name/> &#183; </b:if>Sorotan Utama
+                        </div>
+                        <h2 class='lead-title'>
+                          <a expr:href='data:post.url'><data:post.title/></a>
+                        </h2>
+                        <p class='lead-snippet'>
+                          <b:eval expr='data:post.body snippet { length: 165, links: false, linebreaks: false }'/>
+                        </p>
+                        <div class='lead-meta'>
+                          <b:if cond='data:post.author'><data:post.author.name/> &#183; </b:if><data:post.date/>
+                        </div>
+                      </div>
+                    </article>
+                  <b:else/>
+                    <article class='post-list-card'>
+                      <a class='post-thumb-link' expr:href='data:post.url'>
+                        <b:if cond='data:post.featuredImage'>
+                          <b:if cond='data:post.featuredImage.isResizable'>
+                            <img expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 480, &quot;16:10&quot;)'/>
+                          <b:else/>
+                            <img expr:alt='data:post.title' expr:src='data:post.featuredImage'/>
+                          </b:if>
+                        <b:else/>
+                          <span class='post-thumb-fallback'>K</span>
+                        </b:if>
+                      </a>
+                      <div class='post-card-body'>
+                        <b:if cond='data:post.labels'>
+                          <div class='post-kicker'>
+                            <a expr:href='data:post.labels.first.url'><data:post.labels.first.name/></a>
+                          </div>
+                        </b:if>
+                        <h2 class='post-card-title'>
+                          <a expr:href='data:post.url'><data:post.title/></a>
+                        </h2>
+                        <p class='post-snippet'>
+                          <b:eval expr='data:post.body snippet { length: 155, links: false, linebreaks: false }'/>
+                        </p>
+                        <div class='post-meta'>
+                          <b:if cond='data:post.author'><data:post.author.name/> &#183; </b:if><data:post.date/>
+                        </div>
+                      </div>
+                    </article>
+                  </b:if>
+                </b:loop>
+              </div>
+
+              <b:if cond='data:view.isMultipleItems'>
+                <div class='blog-pager'>
+                  <b:if cond='data:newerPageUrl'>
+                    <a class='pager-link' expr:href='data:newerPageUrl'>&#8592; Berita Lebih Baru</a>
+                  <b:else/>
+                    <span></span>
+                  </b:if>
+                  <b:if cond='data:olderPageUrl'>
+                    <a class='pager-link' expr:href='data:olderPageUrl'>Berita Sebelumnya &#8594;</a>
+                  </b:if>
+                </div>
+              </b:if>
+            </b:if>
+          </b:includable>
+          <b:includable id='addComments'>
+            <a expr:href='data:post.commentsUrl' expr:onclick='data:post.commentsUrlOnclick'>
+              <b:message name='messages.postAComment'/>
+            </a>
+          </b:includable>
+          <b:includable id='commentAuthorAvatar'>
+            <div class='avatar-image-container'>
+              <img alt='avatar' class='author-avatar' expr:src='data:comment.authorAvatarSrc'/>
+            </div>
+          </b:includable>
+          <b:includable id='commentDeleteIcon' var='comment'>
+            <span expr:class='&quot;item-control &quot; + data:comment.adminClass'>
+              <b:if cond='data:showCmtPopup'>
+                <div class='goog-toggle-button'>
+                  <div class='goog-inline-block comment-action-icon'></div>
+                </div>
+              <b:else/>
+                <a class='comment-delete' expr:href='data:comment.deleteUrl' expr:title='data:messages.deleteComment'>
+                  <img alt='' src='https://resources.blogblog.com/img/icon_delete13.gif'/>
+                </a>
+              </b:if>
+            </span>
+          </b:includable>
+          <b:includable id='commentForm' var='post'>
+            <div class='comment-form'>
+              <a name='comment-form'></a>
+              <b:if cond='data:this.messages.blogComment != &quot;&quot;'>
+                <p><data:this.messages.blogComment/></p>
+              </b:if>
+              <b:include data='post' name='commentFormIframeSrc'/>
+              <iframe allowtransparency='allowtransparency' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight ?: &quot;90px&quot;' frameborder='0' id='comment-editor' name='comment-editor' src='' width='100%'></iframe>
+              <data:post.cmtfpIframe/>
+              <script type='text/javascript'>
+                BLOG_CMT_createIframe(&#39;<data:post.appRpcRelayPath/>&#39;);
+              </script>
+            </div>
+          </b:includable>
+          <b:includable id='commentFormIframeSrc' var='post'>
+            <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'></a>
+          </b:includable>
+          <b:includable id='commentItem' var='comment'>
+            <div class='comment' expr:id='&quot;c&quot; + data:comment.id'>
+              <b:include cond='data:blog.enabledCommentProfileImages' name='commentAuthorAvatar'/>
+              <div class='comment-block'>
+                <div class='comment-author'>
+                  <b:if cond='data:comment.authorUrl'>
+                    <b:message name='messages.authorSaidWithLink'>
+                      <b:param expr:value='data:comment.author' name='authorName'/>
+                      <b:param expr:value='data:comment.authorUrl' name='authorUrl'/>
+                    </b:message>
+                  <b:else/>
+                    <b:message name='messages.authorSaid'>
+                      <b:param expr:value='data:comment.author' name='authorName'/>
+                    </b:message>
+                  </b:if>
+                </div>
+                <div expr:class='&quot;comment-body&quot; + (data:comment.isDeleted ? &quot; deleted&quot; : &quot;&quot;)'>
+                  <data:comment.body/>
+                </div>
+                <div class='comment-footer'>
+                  <span class='comment-timestamp'>
+                    <a expr:href='data:comment.url' title='comment permalink'>
+                      <data:comment.timestamp/>
+                    </a>
+                    <b:include data='comment' name='commentDeleteIcon'/>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </b:includable>
+          <b:includable id='commentList' var='comments'>
+            <div id='comments-block'>
+              <b:loop values='data:comments' var='comment'>
+                <b:include data='comment' name='commentItem'/>
+              </b:loop>
+            </div>
+          </b:includable>
+          <b:includable id='commentPicker' var='post'>
+            <b:if cond='data:post.commentSource == 1'>
+              <b:include data='post' name='iframeComments'/>
+            <b:elseif cond='data:post.showThreadedComments'/>
+              <b:include data='post' name='threadedComments'/>
+            <b:else/>
+              <b:include data='post' name='comments'/>
+            </b:if>
+          </b:includable>
+          <b:includable id='comments' var='post'>
+            <section expr:class='&quot;comments&quot; + (data:post.embedCommentForm ? &quot; embed&quot; : &quot;&quot;)' expr:data-num-comments='data:post.numberOfComments' id='comments'>
+              <a name='comments'></a>
+              <b:if cond='data:post.allowComments'>
+                <b:include name='commentsTitle'/>
+                <div expr:id='data:widget.instanceId + &quot;_comments-block-wrapper&quot;'>
+                  <b:include cond='data:post.comments' data='post.comments' name='commentList'/>
+                </div>
+                <b:if cond='data:post.commentPagingRequired'>
+                  <div class='paging-control-container'>
+                    <b:if cond='data:post.hasOlderLinks'>
+                      <a expr:class='data:post.oldLinkClass' expr:href='data:post.oldestLinkUrl'><data:messages.oldest/></a>
+                      <a expr:class='data:post.oldLinkClass' expr:href='data:post.olderLinkUrl'><data:messages.older/></a>
+                    </b:if>
+                    <span class='comment-range-text'><data:post.commentRangeText/></span>
+                    <b:if cond='data:post.hasNewerLinks'>
+                      <a expr:class='data:post.newLinkClass' expr:href='data:post.newerLinkUrl'><data:messages.newer/></a>
+                      <a expr:class='data:post.newLinkClass' expr:href='data:post.newestLinkUrl'><data:messages.newest/></a>
+                    </b:if>
+                  </div>
+                </b:if>
+                <b:if cond='data:post.embedCommentForm'>
+                  <b:if cond='data:post.allowNewComments'>
+                    <b:include data='post' name='commentForm'/>
+                  <b:else/>
+                    <data:post.noNewCommentsText/>
+                  </b:if>
+                <b:else/>
+                  <b:if cond='data:post.allowComments'>
+                    <b:include data='post' name='addComments'/>
+                  </b:if>
+                </b:if>
+              </b:if>
+              <b:if cond='data:showCmtPopup'>
+                <div id='comment-popup'>
+                  <iframe allowtransparency='allowtransparency' frameborder='0' id='comment-actions' name='comment-actions' scrolling='no'></iframe>
+                </div>
+              </b:if>
+            </section>
+          </b:includable>
+          <b:includable id='commentsLink'>
+            <a class='comment-link' expr:href='data:post.commentsUrl' expr:onclick='data:post.commentsUrlOnclick'>
+              <b:if cond='data:post.numberOfComments &gt; 0'>
+                <b:message name='messages.numberOfComments'>
+                  <b:param expr:value='data:post.numberOfComments' name='numComments'/>
+                </b:message>
+              <b:else/>
+                <data:messages.postAComment/>
+              </b:if>
+            </a>
+          </b:includable>
+          <b:includable id='commentsTitle'>
+            <h3 class='title'><data:post.numberOfComments/> <data:messages.comments/></h3>
+          </b:includable>
+          <b:includable id='iframeComments' var='post'>
+            <b:if cond='data:post.allowIframeComments'>
+              <script expr:src='data:post.iframeCommentSrc' type='text/javascript'></script>
+              <div class='cmt_iframe_holder' expr:data-href='data:post.url.canonical' expr:data-viewtype='data:post.viewType'></div>
+              <b:if cond='!data:post.embedCommentForm'>
+                <b:include data='post' name='commentsLink'/>
+              </b:if>
+            </b:if>
+          </b:includable>
+          <b:includable id='manageComments'>
+            <a expr:href='data:post.manageCommentsUrl' expr:onclick='data:post.manageCommentsUrlOnclick'>
+              <b:message name='messages.manageComments'/>
+            </a>
+          </b:includable>
+          <b:includable id='threadedCommentForm' var='post'>
+            <div class='comment-form'>
+              <a name='comment-form'></a>
+              <b:if cond='data:this.messages.blogComment != &quot;&quot;'>
+                <p><data:this.messages.blogComment/></p>
+              </b:if>
+              <b:include data='post' name='commentFormIframeSrc'/>
+              <iframe allowtransparency='allowtransparency' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight ?: &quot;90px&quot;' frameborder='0' id='comment-editor' name='comment-editor' src='' width='100%'></iframe>
+              <data:post.cmtfpIframe/>
+              <script type='text/javascript'>
+                BLOG_CMT_createIframe(&#39;<data:post.appRpcRelayPath/>&#39;);
+              </script>
+            </div>
+          </b:includable>
+          <b:includable id='threadedCommentJs' var='post'>
+            <script async='async' expr:src='data:post.commentSrc' type='text/javascript'></script>
+            <b:template-script inline='true' name='threaded_comments'/>
+            <script type='text/javascript'>
+              blogger.widgets.blog.initThreadedComments(
+                <data:post.commentJso/>,
+                <data:post.commentMsgs/>,
+                <data:post.commentConfig/>);
+            </script>
+          </b:includable>
+          <b:includable id='threadedComments' var='post'>
+            <section class='comments threaded' expr:data-embed='data:post.embedCommentForm' expr:data-num-comments='data:post.numberOfComments' id='comments'>
+              <a name='comments'></a>
+              <b:include name='commentsTitle'/>
+              <div class='comments-content'>
+                <div id='comment-holder'>
+                  <data:post.commentHtml/>
+                </div>
+              </div>
+              <p class='comment-footer'>
+                <b:if cond='data:post.allowNewComments'>
+                  <b:include data='post' name='threadedCommentForm'/>
+                <b:else/>
+                  <data:post.noNewCommentsText/>
+                </b:if>
+              </p>
+              <b:if cond='data:showCmtPopup'>
+                <div id='comment-popup'>
+                  <iframe allowtransparency='allowtransparency' frameborder='0' id='comment-actions' name='comment-actions' scrolling='no'></iframe>
+                </div>
+              </b:if>
+            </section>
+          </b:includable>
+        </b:widget>
+      </b:section>
+
+      <b:section class='main-bottom-widgets' id='main-bottom-widgets' name='Gadget Bawah Berita' showaddelement='yes'></b:section>
+    </div>
+
+    <aside class='sidebar-col'>
+      <b:section class='sidebar-section' id='sidebar-widgets' name='Sidebar Redaksi' preferred='yes' showaddelement='yes'>
+        <b:widget id='PopularPosts1' locked='false' title='Berita Populer' type='PopularPosts' version='2' visible='true'>
+          <b:widget-settings>
+            <b:widget-setting name='numItemsToShow'>5</b:widget-setting>
+            <b:widget-setting name='showThumbnails'>false</b:widget-setting>
+            <b:widget-setting name='showSnippets'>false</b:widget-setting>
+            <b:widget-setting name='timeRange'>LAST_MONTH</b:widget-setting>
+          </b:widget-settings>
+          <b:includable id='main' var='this'>
+            <h3><data:title/></h3>
+            <b:if cond='data:posts'>
+              <ol class='popular-list'>
+                <b:loop index='idx' values='data:posts' var='post'>
+                  <li class='popular-item'>
+                    <span class='popular-rank'>0<b:eval expr='data:idx + 1'/></span>
+                    <div>
+                      <a class='popular-title' expr:href='data:post.url'><data:post.title/></a>
+                      <span class='popular-date'><data:post.date/></span>
+                    </div>
+                  </li>
+                </b:loop>
+              </ol>
+            <b:else/>
+              <p class='post-snippet'>Belum ada berita populer yang tercatat.</p>
+            </b:if>
+          </b:includable>
+        </b:widget>
+
+        <b:widget id='Label1' locked='false' title='Direktori Rubrik' type='Label' version='2' visible='true'>
+          <b:widget-settings>
+            <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
+            <b:widget-setting name='display'>LIST</b:widget-setting>
+            <b:widget-setting name='selectedLabelsList'/>
+            <b:widget-setting name='showType'>ALL</b:widget-setting>
+            <b:widget-setting name='showFreqNumbers'>true</b:widget-setting>
+          </b:widget-settings>
+          <b:includable id='main' var='this'>
+            <h3><data:title/></h3>
+            <ul class='label-list'>
+              <b:loop values='data:labels' var='label'>
+                <li>
+                  <a expr:href='data:label.url'>
+                    <span><data:label.name/></span>
+                    <b:if cond='data:this.showFreqNumbers'>
+                      <span class='label-count'><data:label.count/></span>
+                    </b:if>
+                  </a>
+                </li>
+              </b:loop>
+            </ul>
+          </b:includable>
+        </b:widget>
+
+        <b:widget id='HTML1' locked='false' title='Meja Redaksi' type='HTML' version='2' visible='true'>
+          <b:widget-settings>
+            <b:widget-setting name='content'><![CDATA[<p class="footer-text">Media Daring — Sobat Keadilan. Diterbitkan oleh PT Wahana Sahabat Kreatif untuk menyajikan berita hukum, kebijakan publik, ekonomi, dan kabar terverifikasi dari Cirebon dan Jawa Barat.</p>]]></b:widget-setting>
+          </b:widget-settings>
+          <b:includable id='main'>
+            <div class='redaksi-box'>
+              <h3><data:title/></h3>
+              <data:content/>
+            </div>
+          </b:includable>
+        </b:widget>
+      </b:section>
+    </aside>
+  </main>
+
+  <!-- 4. Institutional Navy Footer (3 Kolom Gadget Bebas Edit di Tata Letak) -->
+  <footer class='site-footer'>
+    <div class='container footer-grid'>
+      <b:section class='footer-col' id='footer-col-1' name='Footer Kolom 1 (Tentang)' showaddelement='yes'>
+        <b:widget id='HTML2' locked='false' title='Tentang KEADILAN.CO.ID' type='HTML' version='2' visible='true'>
+          <b:widget-settings>
+            <b:widget-setting name='content'><![CDATA[<p class="footer-text">Media Daring — Sobat Keadilan. Diterbitkan oleh PT Wahana Sahabat Kreatif untuk menyajikan berita hukum, kebijakan publik, ekonomi daerah, serta kabar terverifikasi dari Cirebon dan Jawa Barat.</p>]]></b:widget-setting>
+          </b:widget-settings>
+          <b:includable id='main'>
+            <div class='brand-wrap' style='color:#FFFFFF; margin-bottom:10px;'>
+              <span class='brand-emblem'>K</span>
+              <span>KEADILAN<span class='brand-domain'>.CO.ID</span></span>
+            </div>
+            <data:content/>
+          </b:includable>
+        </b:widget>
+      </b:section>
+
+      <b:section class='footer-col' id='footer-col-2' name='Footer Kolom 2 (Alamat Redaksi)' showaddelement='yes'>
+        <b:widget id='HTML3' locked='false' title='Alamat Redaksi' type='HTML' version='2' visible='true'>
+          <b:widget-settings>
+            <b:widget-setting name='content'><![CDATA[<p class="footer-text">Jl. Raya Plumbon &#8211; Cirebon, Kabupaten Cirebon, Jawa Barat<br/>Surel: redaksi@keadilan.co.id</p>]]></b:widget-setting>
+          </b:widget-settings>
+          <b:includable id='main'>
+            <h3 class='footer-label'><data:title/></h3>
+            <data:content/>
+          </b:includable>
+        </b:widget>
+      </b:section>
+
+      <b:section class='footer-col' id='footer-col-3' name='Footer Kolom 3 (Tautan Rubrikasi)' showaddelement='yes'>
+        <b:widget id='LinkList3' locked='false' title='Rubrikasi' type='LinkList' version='2' visible='true'>
+          <b:widget-settings>
+            <b:widget-setting name='sorting'>NONE</b:widget-setting>
+            <b:widget-setting name='link-0'>/</b:widget-setting>
+            <b:widget-setting name='text-0'>Beranda</b:widget-setting>
+            <b:widget-setting name='link-1'>/search/label/Sorot</b:widget-setting>
+            <b:widget-setting name='text-1'>Sorot</b:widget-setting>
+            <b:widget-setting name='link-2'>/search/label/Hukum</b:widget-setting>
+            <b:widget-setting name='text-2'>Hukum</b:widget-setting>
+            <b:widget-setting name='link-3'>/search/label/Politik</b:widget-setting>
+            <b:widget-setting name='text-3'>Politik</b:widget-setting>
+            <b:widget-setting name='link-4'>/search/label/Daerah</b:widget-setting>
+            <b:widget-setting name='text-4'>Daerah</b:widget-setting>
+            <b:widget-setting name='link-5'>/search/label/Ekonomi</b:widget-setting>
+            <b:widget-setting name='text-5'>Ekonomi</b:widget-setting>
+            <b:widget-setting name='link-6'>/search/label/Teknologi</b:widget-setting>
+            <b:widget-setting name='text-6'>Teknologi</b:widget-setting>
+          </b:widget-settings>
+          <b:includable id='main'>
+            <b:include name='content'/>
+          </b:includable>
+          <b:includable id='content'>
+            <h3 class='footer-label'><data:title/></h3>
+            <div class='footer-links'>
+              <b:if cond='data:links'>
+                <b:loop values='data:links' var='link'>
+                  <a expr:href='data:link.target'><data:link.name/></a>
+                </b:loop>
+              <b:else/>
+                <a expr:href='data:blog.homepageUrl'>Beranda</a>
+                <a href='/search/label/Sorot'>Sorot</a>
+                <a href='/search/label/Hukum'>Hukum</a>
+                <a href='/search/label/Politik'>Politik</a>
+                <a href='/search/label/Daerah'>Daerah</a>
+                <a href='/search/label/Ekonomi'>Ekonomi</a>
+                <a href='/search/label/Teknologi'>Teknologi</a>
+              </b:if>
+            </div>
+          </b:includable>
+        </b:widget>
+      </b:section>
+    </div>
+    <div class='container footer-bottom'>
+      <span>&#169; 2026 KEADILAN.CO.ID &#8212; PT Wahana Sahabat Kreatif.</span>
+      <span>Menjunjung Kode Etik Jurnalistik &amp; Pedoman Pemberitaan Media Siber.</span>
+    </div>
+  </footer>
+
+  <button aria-label='Kembali ke atas' class='back-to-top-btn' id='backToTopBtn' type='button'>&#8593; Kembali ke Atas</button>
+
+  <!-- =======================================================
+       BAGIAN JAVASCRIPT UTAMA (keadilan-theme.js)
+       ======================================================= -->
+  <script type='text/javascript'>//<![CDATA[
+/* =========================================================
+   KEADILAN.CO.ID — File JavaScript Utama (keadilan-theme.js)
+   Modular, Ringan, & Aman terhadap Perubahan Gadget Tata Letak
+   ========================================================= */
+(function () {
+  'use strict';
+
+  function initBreakingTicker() {
+    var track = document.getElementById('breakingTrack');
+    var pauseBtn = document.getElementById('tickerPauseBtn');
+    if (!track) return;
+
+    if (pauseBtn) {
+      pauseBtn.addEventListener('click', function () {
+        var paused = track.classList.toggle('is-paused');
+        pauseBtn.textContent = paused ? 'Putar' : 'Jeda';
+        pauseBtn.setAttribute('aria-pressed', paused ? 'true' : 'false');
+      });
+    }
+
+    var bar = document.getElementById('breakingNewsBar');
+    var enableAutoCycle =
+      (bar && bar.getAttribute('data-auto-cycle') === 'true') || false;
+    var intervalSec =
+      Number(bar && bar.getAttribute('data-cycle-interval')) || 5;
+
+    if (enableAutoCycle) {
+      var items = track.querySelectorAll('.breaking-item');
+      var uniqueCount = Math.floor(items.length / 2);
+      if (uniqueCount > 1) {
+        var activeIdx = 0;
+        window.setInterval(function () {
+          if (track.classList.contains('is-paused')) return;
+          for (var i = 0; i < items.length; i++) {
+            items[i].classList.remove('is-spotlight');
+          }
+          activeIdx = (activeIdx + 1) % uniqueCount;
+          if (items[activeIdx]) items[activeIdx].classList.add('is-spotlight');
+          if (items[activeIdx + uniqueCount]) {
+            items[activeIdx + uniqueCount].classList.add('is-spotlight');
+          }
+        }, Math.max(2, intervalSec) * 1000);
+      }
+    }
+  }
+
+  function initMobileDrawer() {
+    var mobileBtn = document.getElementById('mobileMenuBtn');
+    var mobileDrawer = document.getElementById('mobileDrawer');
+    if (!mobileBtn || !mobileDrawer) return;
+
+    // Sinkronkan link menu dari gadget Navigasi Utama bila tersedia
+    var drawerNav = mobileDrawer.querySelector('.mobile-drawer-nav');
+    var mainNavLinks = document.querySelectorAll('.main-nav a');
+    if (drawerNav && mainNavLinks.length > 0 && drawerNav.children.length === 0) {
+      for (var i = 0; i < mainNavLinks.length; i++) {
+        drawerNav.appendChild(mainNavLinks[i].cloneNode(true));
+      }
+    }
+
+    mobileBtn.addEventListener('click', function () {
+      var open = mobileDrawer.classList.toggle('is-open');
+      mobileBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && mobileDrawer.classList.contains('is-open')) {
+        mobileDrawer.classList.remove('is-open');
+        mobileBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  function initThemeToggle() {
+    var themeBtn = document.getElementById('themeToggleBtn');
+    if (!themeBtn) return;
+
+    function syncLabel() {
+      var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      themeBtn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+    }
+    syncLabel();
+
+    themeBtn.addEventListener('click', function () {
+      var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      var next = isDark ? 'light' : 'dark';
+      if (next === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+      }
+      try {
+        localStorage.setItem('keadilan_dark_mode', next);
+      } catch (e) {}
+      syncLabel();
+    });
+  }
+
+  function initViewModeToggle() {
+    var postsWrap = document.getElementById('postsWrap');
+    var viewBtns = document.querySelectorAll('[data-view-mode]');
+    if (!postsWrap || !viewBtns.length) return;
+
+    function applyViewMode(mode) {
+      if (mode === 'grid') postsWrap.classList.add('is-grid');
+      else postsWrap.classList.remove('is-grid');
+      for (var i = 0; i < viewBtns.length; i++) {
+        var btn = viewBtns[i];
+        if (btn.getAttribute('data-view-mode') === mode) btn.classList.add('is-active');
+        else btn.classList.remove('is-active');
+      }
+    }
+
+    try {
+      var savedView = localStorage.getItem('keadilan_view_mode');
+      if (savedView === 'grid' || savedView === 'list') applyViewMode(savedView);
+    } catch (e) {}
+
+    for (var j = 0; j < viewBtns.length; j++) {
+      viewBtns[j].addEventListener('click', function () {
+        var mode = this.getAttribute('data-view-mode') || 'list';
+        applyViewMode(mode);
+        try {
+          localStorage.setItem('keadilan_view_mode', mode);
+        } catch (e) {}
+      });
+    }
+  }
+
+  function initFontSizeControls() {
+    var fontBtns = document.querySelectorAll('[data-font-size]');
+    if (!fontBtns.length) return;
+
+    function applyFontSize(sz) {
+      document.documentElement.setAttribute('data-font-size', sz);
+      for (var i = 0; i < fontBtns.length; i++) {
+        if (fontBtns[i].getAttribute('data-font-size') === sz) {
+          fontBtns[i].classList.add('is-active');
+        } else {
+          fontBtns[i].classList.remove('is-active');
+        }
+      }
+    }
+
+    try {
+      var savedFs = localStorage.getItem('keadilan_font_size');
+      if (savedFs === 'small' || savedFs === 'medium' || savedFs === 'large') {
+        applyFontSize(savedFs);
+      }
+    } catch (e) {}
+
+    for (var k = 0; k < fontBtns.length; k++) {
+      fontBtns[k].addEventListener('click', function () {
+        var sz = this.getAttribute('data-font-size') || 'medium';
+        applyFontSize(sz);
+        try {
+          localStorage.setItem('keadilan_font_size', sz);
+        } catch (e) {}
+      });
+    }
+  }
+
+  function initScrollUtilities() {
+    var progressFill = document.getElementById('readingProgressFill');
+    var backBtn = document.getElementById('backToTopBtn');
+
+    function onScroll() {
+      var top = window.scrollY || window.pageYOffset || 0;
+      if (backBtn) {
+        if (top > 320) backBtn.classList.add('is-visible');
+        else backBtn.classList.remove('is-visible');
+      }
+      if (progressFill) {
+        var docH = document.documentElement.scrollHeight - window.innerHeight;
+        var pct = docH > 0 ? Math.min(1, Math.max(0, top / docH)) : 0;
+        progressFill.style.transform = 'scaleX(' + pct + ')';
+        if (pct >= 0.85) progressFill.classList.add('is-glow');
+        else progressFill.classList.remove('is-glow');
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    if (backBtn) {
+      backBtn.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+  }
+
+  function initArticleActions() {
+    var copyBtn = document.getElementById('copyLinkBtn');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', function () {
+        var url = copyBtn.getAttribute('data-url') || window.location.href;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(url).then(function () {
+            copyBtn.textContent = 'Tautan Tersalin';
+            window.setTimeout(function () {
+              copyBtn.textContent = 'Salin Tautan';
+            }, 2000);
+          });
+        }
+      });
+    }
+
+    var printBtn = document.getElementById('printArticleBtn');
+    if (printBtn) {
+      printBtn.addEventListener('click', function () {
+        window.print();
+      });
+    }
+  }
+
+  function bootstrap() {
+    initBreakingTicker();
+    initMobileDrawer();
+    initThemeToggle();
+    initViewModeToggle();
+    initFontSizeControls();
+    initScrollUtilities();
+    initArticleActions();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bootstrap);
+  } else {
+    bootstrap();
+  }
+})();
+
+  //]]></script>
+</body>
+</html>

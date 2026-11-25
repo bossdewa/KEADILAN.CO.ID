@@ -1,0 +1,8 @@
+{
+  "name": "Remix KEADILAN.CO.ID — Portal Berita \u0026 Breaking News Ticker",
+  "description": "Portal berita editorial KEADILAN.CO.ID dengan fitur running text breaking news yang dapat dikustomisasi durasi, warna latar belakang, daftar berita, serta ekspor kode tema Blogger XML.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

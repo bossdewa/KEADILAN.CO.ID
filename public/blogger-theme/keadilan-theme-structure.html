@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="id" data-font-size="medium">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KEADILAN.CO.ID — Media Daring &amp; Portal Berita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Playfair+Display:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- File CSS Utama -->
+  <link rel="stylesheet" href="./keadilan-theme.css" />
+</head>
+<body>
+  <!-- SLOT GADGET 1: Breaking News Ticker (Dikelola via Tata Letak > Breaking News) -->
+  <div class="breaking-news-bar" id="breakingNewsBar" data-auto-cycle="false" data-cycle-interval="5">
+    <div class="breaking-news-inner">
+      <span class="breaking-badge">TERKINI</span>
+      <div class="breaking-track-wrap">
+        <div class="breaking-track" id="breakingTrack">
+          <a class="breaking-item" href="/search/label/Hukum"><strong>Hukum:</strong>&nbsp;Mahkamah Agung luncurkan sistem pemantauan perkara elektronik terintegrasi di seluruh pengadilan negeri Jawa Barat<span class="breaking-sep">&bull;</span></a>
+          <a class="breaking-item" href="/search/label/Daerah"><strong>Daerah:</strong>&nbsp;Revitalisasi kawasan pelabuhan Cirebon dan koridor ekonomi Pantura ditargetkan rampung kuartal ketiga tahun ini<span class="breaking-sep">&bull;</span></a>
+          <a class="breaking-item" href="/search/label/Politik"><strong>Politik:</strong>&nbsp;DPRD bersama pemerintah daerah sepakat perkuat transparansi anggaran publik melalui portal data terbuka daerah<span class="breaking-sep">&bull;</span></a>
+          <a class="breaking-item" href="/search/label/Umum"><strong>Umum:</strong>&nbsp;BMKG keluarkan prakiraan cuaca maritim dan imbauan kewaspadaan gelombang tinggi bagi nelayan pesisir utara<span class="breaking-sep">&bull;</span></a>
+          <a class="breaking-item" href="/search/label/Sorot"><strong>Sorot:</strong>&nbsp;Liputan Khusus: Menakar kesiapan UMKM Cirebon menembus pasar ekspor digital berbekal pendampingan hukum usaha<span class="breaking-sep">&bull;</span></a>
+          <a class="breaking-item" href="/search/label/Hukum"><strong>Hukum:</strong>&nbsp;Mahkamah Agung luncurkan sistem pemantauan perkara elektronik terintegrasi di seluruh pengadilan negeri Jawa Barat<span class="breaking-sep">&bull;</span></a>
+          <a class="breaking-item" href="/search/label/Daerah"><strong>Daerah:</strong>&nbsp;Revitalisasi kawasan pelabuhan Cirebon dan koridor ekonomi Pantura ditargetkan rampung kuartal ketiga tahun ini<span class="breaking-sep">&bull;</span></a>
+          <a class="breaking-item" href="/search/label/Politik"><strong>Politik:</strong>&nbsp;DPRD bersama pemerintah daerah sepakat perkuat transparansi anggaran publik melalui portal data terbuka daerah<span class="breaking-sep">&bull;</span></a>
+          <a class="breaking-item" href="/search/label/Umum"><strong>Umum:</strong>&nbsp;BMKG keluarkan prakiraan cuaca maritim dan imbauan kewaspadaan gelombang tinggi bagi nelayan pesisir utara<span class="breaking-sep">&bull;</span></a>
+          <a class="breaking-item" href="/search/label/Sorot"><strong>Sorot:</strong>&nbsp;Liputan Khusus: Menakar kesiapan UMKM Cirebon menembus pasar ekspor digital berbekal pendampingan hukum usaha<span class="breaking-sep">&bull;</span></a>
+        </div>
+      </div>
+      <div class="ticker-controls">
+        <button class="ticker-pause-btn" id="tickerPauseBtn" type="button">Jeda</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLOT GADGET 2: Header Logo & Navigasi Rubrik -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="header-brand-section">
+        <a class="brand-wrap" href="/">
+          <span class="brand-emblem">K</span>
+          <span>KEADILAN<span class="brand-domain">.CO.ID</span></span>
+        </a>
+      </div>
+
+      <div class="header-nav-section">
+        <nav aria-label="Navigasi Rubrik" class="main-nav">
+          <a href="/" class="is-active">Beranda</a>
+          <a href="/search/label/Sorot">Sorot</a>
+          <a href="/search/label/Hukum">Hukum</a>
+          <a href="/search/label/Politik">Politik</a>
+          <a href="/search/label/Daerah">Daerah</a>
+          <a href="/search/label/Ekonomi">Ekonomi</a>
+          <a href="/search/label/Teknologi">Teknologi</a>
+        </nav>
+      </div>
+
+      <div class="header-actions">
+        <form action="/search" class="search-form" method="get">
+          <input aria-label="Cari berita" name="q" placeholder="Cari berita..." type="search" />
+          <button type="submit">Cari</button>
+        </form>
+        <button aria-label="Ubah mode warna" class="theme-toggle-btn" id="themeToggleBtn" type="button">Tema</button>
+        <button aria-expanded="false" aria-label="Menu rubrik" class="mobile-menu-btn" id="mobileMenuBtn" type="button">Menu</button>
+      </div>
+    </div>
+
+    <div class="mobile-drawer" id="mobileDrawer">
+      <nav aria-label="Navigasi Seluler" class="mobile-drawer-nav"></nav>
+    </div>
+
+    <div class="reading-progress-track">
+      <div class="reading-progress-fill" id="readingProgressFill"></div>
+    </div>
+  </header>
+
+  <!-- SLOT GADGET 3: Banner / Pengumuman Atas -->
+  <div class="container header-ad-banner" aria-label="Slot Gadget Banner Atas">
+    <!-- Tambahkan Gadget HTML/JavaScript atau AdSense melalui Tata Letak -->
+  </div>
+
+  <!-- SLOT GADGET 4 & 5: Konten Utama (8 Kolom) & Sidebar Redaksi (4 Kolom) -->
+  <main class="container portal-main">
+    <div class="feed-col">
+      <!-- Gadget Atas Konten -->
+      <div class="main-top-widgets"></div>
+
+      <!-- Feed Berita Utama -->
+      <div class="feed-header">
+        <h1 class="section-heading">Kabar Terbaru Redaksi</h1>
+        <div class="feed-controls">
+          <button class="view-btn is-active" data-view-mode="list" type="button">Daftar</button>
+          <button class="view-btn" data-view-mode="grid" type="button">Kisi</button>
+        </div>
+      </div>
+
+      <div class="posts-wrap" id="postsWrap">
+        <article class="lead-story-card">
+          <div class="lead-story-overlay"></div>
+          <div class="lead-story-content">
+            <div class="lead-kicker">Sorot &middot; Utama</div>
+            <h2 class="lead-title"><a href="#artikel-utama">Judul Berita Utama KEADILAN.CO.ID</a></h2>
+            <p class="lead-snippet">Ringkasan laporan jurnalistik mendalam dari Cirebon dan Jawa Barat.</p>
+            <div class="lead-meta">Redaksi Keadilan &middot; Hari Ini</div>
+          </div>
+        </article>
+      </div>
+
+      <!-- Gadget Bawah Konten -->
+      <div class="main-bottom-widgets"></div>
+    </div>
+
+    <!-- SLOT GADGET 6: Sidebar Redaksi (Populer, Rubrik, Pencarian, HTML Bebas) -->
+    <aside class="sidebar-col" aria-label="Sidebar Redaksi">
+      <section class="widget">
+        <h3>Berita Populer</h3>
+        <ol class="popular-list">
+          <li class="popular-item">
+            <span class="popular-rank">01</span>
+            <div>
+              <a class="popular-title" href="#populer-1">Laporan Khusus Reformasi Peradilan Daerah</a>
+              <span class="popular-date">24 Nov 2026</span>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <section class="widget redaksi-box">
+        <h3>KEADILAN.CO.ID</h3>
+        <p class="footer-text">
+          Media Daring — Sobat Keadilan. Diterbitkan oleh PT Wahana Sahabat Kreatif.
+        </p>
+      </section>
+    </aside>
+  </main>
+
+  <!-- SLOT GADGET 7: Footer 3 Kolom (Editable via Tata Letak) -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <div class="brand-wrap" style="color:#FFFFFF; margin-bottom:10px;">
+          <span class="brand-emblem">K</span>
+          <span>KEADILAN<span class="brand-domain">.CO.ID</span></span>
+        </div>
+        <p class="footer-text">
+          Media Daring — Sobat Keadilan. Menyajikan berita hukum, kebijakan publik, ekonomi, serta kabar terverifikasi dari Cirebon dan Jawa Barat.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h3 class="footer-label">Alamat Redaksi</h3>
+        <p class="footer-text">
+          Jl. Raya Plumbon &ndash; Cirebon, Kabupaten Cirebon, Jawa Barat<br />
+          Surel: redaksi@keadilan.co.id
+        </p>
+      </div>
+      <div class="footer-col">
+        <h3 class="footer-label">Rubrikasi</h3>
+        <div class="footer-links">
+          <a href="/">Beranda</a>
+          <a href="/search/label/Sorot">Sorot</a>
+          <a href="/search/label/Hukum">Hukum</a>
+          <a href="/search/label/Politik">Politik</a>
+          <a href="/search/label/Daerah">Daerah</a>
+          <a href="/search/label/Ekonomi">Ekonomi</a>
+          <a href="/search/label/Teknologi">Teknologi</a>
+        </div>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span>&copy; 2026 KEADILAN.CO.ID &mdash; PT Wahana Sahabat Kreatif.</span>
+      <span>Menjunjung Kode Etik Jurnalistik &amp; Pedoman Pemberitaan Media Siber.</span>
+    </div>
+  </footer>
+
+  <button aria-label="Kembali ke atas" class="back-to-top-btn" id="backToTopBtn" type="button">&uarr; Kembali ke Atas</button>
+
+  <!-- File JavaScript Utama -->
+  <script src="./keadilan-theme.js"></script>
+</body>
+</html>
